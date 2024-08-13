@@ -3,11 +3,20 @@
 
 {% block content %}
 <h2>Sign Up</h2>
+
 <form method="post">
     {% csrf_token %}
     <!-- form fields here -->
+    <!--<img src="//Users//sbalabha//Downloads//instalogo.jpg" alt="Image of Social Media Site"/> -->
+
+    {% for field in form.visible_fields %}
+        <div class="label"> {{field.label}} </div>
+        {{ field }}
+    {% endfor %}
 
     <form action="signup.html">
+
+
 
 
     </form>
