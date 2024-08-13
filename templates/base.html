@@ -1,0 +1,27 @@
+<!-- templates/base.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>{% block title %}My InstaClone Site{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Welcome to My InstaClone Site</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about/">About</a></li>
+        </ul>
+    </nav>
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+    <footer>
+        <p>Footer content here</p>
+    </footer>
+</body>
+</html>
