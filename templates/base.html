@@ -4,8 +4,14 @@
 <html lang="en">
 <head>
 
-    <title>{% block title %}My InstaClone Site{% endblock %}</title>
+    <title>
+        {% block title %}
+            My InstaClone Site
+        {% endblock %}
+    </title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <img src="//Users//sbalabha//Downloads//instalogo.jpg" alt="Image of Social Media Site"/>
 </head>
 <body>
     <header>
@@ -20,7 +26,9 @@
     <div class="center-part">
         <h1> Sign Up </h1>
         <div id="content">
-            {% block content %}{% endblock %}
+            {% block content %}
+
+            {% endblock %}
         </div>
     </div>
 
