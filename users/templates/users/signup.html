@@ -2,17 +2,21 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li> {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
     <h2>Sign Up</h2>
 
     <form method="post">
         {% csrf_token %}
-        <!-- form fields here -->
 
-        <!-- {% for field in form.visible_fields %}
-            <div class="label"> {{field.label}} </div>
-            {{ field }}
-        {% endfor %}
-        -->
 
         {{ form.as_p }}
         <button type="submit">Sign Up</button>

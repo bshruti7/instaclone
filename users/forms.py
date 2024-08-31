@@ -31,14 +31,6 @@ class UserSignupForm(forms.ModelForm):
         fields = ['username', 'email', 'password']
 
 
-    # def save(self, commit=True):
-    #     user = super(UserSignupForm, self).save(commit=False)
-    #     # Access the password value and hash it
-    #     user.password = make_password(self.cleaned_data['password'])
-    #     if commit:
-    #         user.save()
-    #     return user
-
     def visible_fields(self):
         return [field for field in super().visible_fields() if
                 field.name in ['username', 'email', 'password']]
