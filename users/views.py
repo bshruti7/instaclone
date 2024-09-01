@@ -5,6 +5,8 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from django.contrib.messages import get_messages
 
+from .models import UserProfile
+
 
 def signup_user(request):
 
@@ -21,6 +23,7 @@ def signup_user(request):
                 # Create the user with hashed password
                 user = User.objects.create_user(username=username, email=email, password=password)
                 print("User saved:", user)
+                UserProfile.objects.create(user=user)
 
                 # Send verification email
                 send_verification_email(user)
