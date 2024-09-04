@@ -3,5 +3,6 @@ import users.views as users_views
 
 urlpatterns = [
     path("signup/", users_views.signup_user, name="signup"),
-    path("login/", users_views.login_user, name="login")
+    path("login/", users_views.login_user, name="login"),
+    path("add", users_views.create_user, name="add"),
 ]
