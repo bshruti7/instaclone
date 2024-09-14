@@ -11,6 +11,9 @@ from django.contrib.messages import get_messages
 from .models import UserProfile
 from rest_framework import status
 
+from rest_framework_simplejwt.tokens import RefreshToken
+
+
 
 def signup_user(request):
 
@@ -81,9 +84,11 @@ def create_user(request):
 
     if serializer.is_valid():
         user = serializer.save()
+        refresh = RefreshToken.for_user(user)
 
         response_data['data'] = {
-            "success": True
+            'refresh': str(refresh),
+            'access': str(refresh.access_token),
         }
         response_status = status.HTTP_201_CREATED
 
