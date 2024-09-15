@@ -20,3 +20,20 @@ class UserCreateSerializer(ModelSerializer):
         UserProfile.objects.create(user=user)
 
         return user
+
+
+class UserViewSerializer(ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ('username', 'email')
+
+
+class UserProfileViewSerializer(ModelSerializer):
+
+    user = UserViewSerializer()
+
+    class Meta:
+        model = UserProfile
+        fields = ('user', 'bio', 'profile_pic', 'is_verified')
+

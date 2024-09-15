@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from .serializers import UserCreateSerializer
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework_simplejwt.authentication import JWTAuthentication
+
+from .serializers import UserCreateSerializer, UserProfileViewSerializer
 
 from .forms import UserSignupForm
 from django.contrib.auth.models import User
@@ -12,7 +15,6 @@ from .models import UserProfile
 from rest_framework import status
 
 from rest_framework_simplejwt.tokens import RefreshToken
-
 
 
 def signup_user(request):
@@ -99,3 +101,18 @@ def create_user(request):
         response_status = status.HTTP_400_BAD_REQUEST
 
     return Response(response_data, status=response_status)
+
+
+@api_view(['GET'])
+@authentication_classes([JWTAuthentication])
+@permission_classes([IsAuthenticated])
+def list_users(request):
+    print(request.user.username)
+
+    users = UserProfile.objects.all()
+
+    serialized_data = UserProfileViewSerializer(instance=users, many=True)
+
+    return Response(serialized_data.data, status=status.HTTP_200_OK)
+
+

@@ -10,6 +10,7 @@ class TimeStamp(models.Model):
     class Meta:
         abstract = True
 
+
 class UserProfile(TimeStamp):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
