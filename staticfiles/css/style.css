@@ -11,4 +11,22 @@ header {
     padding: 10px 0;
     text-align: center;
 }
-/* Add other styles here */
+/* Assuming your div has an id of 'centered-div' */
+.center-part {
+  /* Centering */
+  width: 80%; /* Adjust as needed */
+  max-width: 800px; /* Optional: sets a maximum width */
+  margin: 0 auto; /* Centers the div horizontally */
+
+  /* Border */
+  border: 2px solid black;
+
+  /* Background color */
+  background-color: #f0f0f0; /* Light gray, adjust as needed */
+
+  /* Optional: adds some padding inside the div */
+  padding: 20px;
+
+  /* Optional: rounds the corners of the div and border */
+  border-radius: 8px;
+}

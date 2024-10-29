@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
-from .serializers import UserCreateSerializer, UserProfileViewSerializer
+from .serializers import UserCreateSerializer, UserProfileViewSerializer, UserProfileUpdateSerializer
 
 from .forms import UserSignupForm
 from django.contrib.auth.models import User
@@ -114,5 +114,30 @@ def list_users(request):
     serialized_data = UserProfileViewSerializer(instance=users, many=True)
 
     return Response(serialized_data.data, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+@authentication_classes([JWTAuthentication])
+def update_user_profile(request):
+
+    response_data = {
+        "data": None,
+        "errors": None
+    }
+
+    serializer = UserProfileUpdateSerializer(data=request.data)
+
+    if serializer.is_valid():
+
+        serialized_data = serializer.save()
+        response_data["data"] = serialized_data.data
+        response_status = status.HTTP_200_OK
+
+    else:
+        response_data["errors"] = serializer.errors
+        response_status = status.HTTP_400_BAD_REQUEST
+
+    return Response(response_data, response_status)
 
 
