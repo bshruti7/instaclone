@@ -13,10 +13,8 @@ class TimeStamp(models.Model):
 
 class UserProfile(TimeStamp):
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     bio = models.CharField(max_length=255, blank=True)
     is_verified = models.BooleanField(default=False)
     profile_pic = models.ImageField(upload_to="profile_pics/", blank=True)
 
-
-# Create your models here.

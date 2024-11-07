@@ -126,16 +126,16 @@ def update_user_profile(request):
         "errors": None
     }
 
-    serializer = UserProfileUpdateSerializer(data=request.data)
+    user_profile_serializer = UserProfileUpdateSerializer(instance=request.user.profile, data=request.data)
 
-    if serializer.is_valid():
+    if user_profile_serializer.is_valid():
 
-        serialized_data = serializer.save()
-        response_data["data"] = serialized_data.data
+        user_profile = user_profile_serializer.save()
+        response_data["data"] = UserProfileViewSerializer(instance=user_profile).data
         response_status = status.HTTP_200_OK
 
     else:
-        response_data["errors"] = serializer.errors
+        response_data["errors"] = user_profile_serializer.errors
         response_status = status.HTTP_400_BAD_REQUEST
 
     return Response(response_data, response_status)

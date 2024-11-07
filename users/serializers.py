@@ -9,7 +9,7 @@ class UserCreateSerializer(ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password')
+        fields = ('username', 'email', 'password', 'first_name', 'last_name')
 
     def create(self, validated_data):
 
@@ -26,7 +26,7 @@ class UserViewSerializer(ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'email')
+        fields = ('username', 'email', 'first_name', 'last_name')
 
 
 class UserProfileViewSerializer(ModelSerializer):
@@ -40,22 +40,23 @@ class UserProfileViewSerializer(ModelSerializer):
 
 class UserProfileUpdateSerializer(ModelSerializer):
 
-    first_name = serializers.CharField(write_only=True)
-    last_name = serializers.CharField(write_only=True)
+    first_name = serializers.CharField(source='user.first_name')
+    last_name = serializers.CharField(source='user.last_name')
+
+    class Meta:
+        model = UserProfile
+        fields = ('first_name', 'last_name', 'bio',)
 
     def update(self, instance, validated_data):
 
         user = instance.user
-
-        user.first_name = validated_data.pop('first_name')
-        user.last_name = validated_data.pop('last_name')
-
+        user_data = validated_data.get('user')
+        validated_data.pop('user')
+        user.first_name = user_data.get('first_name', user.first_name)
+        user.last_name = user_data.get('last_name', user.last_name)
         user.save()
 
-        instance.bio = validated_data['bio']
+        instance.bio = validated_data.get('bio', instance.bio)
         instance.save()
 
-    class Meta:
-        model = UserProfile
-        fields = ('first_name', 'last_name', 'bio')
-
+        return instance
