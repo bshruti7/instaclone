@@ -134,3 +134,12 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 #EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# URL prefix for media files (user-uploaded content)
+MEDIA_URL = '/media/'
+
+# Absolute filesystem path to the directory that will hold user-uploaded files
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+

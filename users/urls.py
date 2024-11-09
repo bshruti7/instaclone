@@ -1,6 +1,8 @@
 from django.urls import path
 import users.views as users_views
 from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView, TokenVerifyView
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path("signup/", users_views.signup_user, name="signup"),
@@ -12,3 +14,6 @@ urlpatterns = [
     path("update/", users_views.update_user_profile, name="update_user_profile")
 
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -9,7 +9,7 @@ class UserCreateSerializer(ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password', 'first_name', 'last_name')
+        fields = ('username', 'email', 'password',)
 
     def create(self, validated_data):
 
@@ -35,7 +35,7 @@ class UserProfileViewSerializer(ModelSerializer):
 
     class Meta:
         model = UserProfile
-        fields = ('user', 'bio', 'profile_pic', 'is_verified')
+        fields = ('user', 'bio', 'profile_pic_url', 'is_verified')
 
 
 class UserProfileUpdateSerializer(ModelSerializer):
@@ -45,7 +45,7 @@ class UserProfileUpdateSerializer(ModelSerializer):
 
     class Meta:
         model = UserProfile
-        fields = ('first_name', 'last_name', 'bio',)
+        fields = ('first_name', 'last_name', 'bio', 'profile_pic_url')
 
     def update(self, instance, validated_data):
 
@@ -57,6 +57,7 @@ class UserProfileUpdateSerializer(ModelSerializer):
         user.save()
 
         instance.bio = validated_data.get('bio', instance.bio)
+        instance.profile_pic_url = validated_data.get('profile_pic_url', instance.profile_pic_url)
         instance.save()
 
         return instance
